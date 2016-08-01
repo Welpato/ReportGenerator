@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title class="titlePage"></title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/theme.css" rel="stylesheet">
+    <link rel="icon" href="img/icon.png">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><div class="titlePage"></div></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><div class="generateReport"></div></a></li>
+            <li><a href="newReport.html"><div class="addNewReport"></div></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <h3><div class="reportList"></div></h3>
+          <ul class="nav nav-sidebar" id="sideMenu">
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header"><div class="generateReport"></div></h1>          
+		  <div id="input" style="display:none">
+					            
+	      </div>
+	      <h2 id="reportName" class="sub-header"></h2>
+	      <div id="divInputs" style="display:none">
+	      	<form id="formInput"></form>
+	      </div>
+	      <hr>
+	      <div id="divNotFind" style="display:none"><h4><div class="reportNotFound"></div></h4></div>
+		  <div id="divReport" style="display:none">	          
+	          <a href="#" id="extExcel" onclick="exportExcel();"><div class="exportToExcel"></div></a>	          
+	            <table id="report" class="table table-hover">
+	              <thead>
+		              <tr>
+		              </tr>
+	              </thead>
+	              <tbody>	             
+	              </tbody>
+	            </table>
+	      </div>	           
+        </div>
+      </div>
+    </div>
+    <div id='modalLoading' class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top:15%; overflow-y:visible;">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-3"></div>
+	            		<div class="col-sm-7"><img class="glyphicon glyphicon-refresh-animate" height="125" width="125" src="img/loading.png"></div>
+            		</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    	
+		
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/lang/lang.js"></script>
+    <script src="js/genReport.js"></script>
+    <script src="js/jquery.techbytarun.excelexportjs.min.js"></script>
+  </body>
+  
+</html>
