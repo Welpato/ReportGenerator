@@ -3,6 +3,7 @@ class connect{
 	private $SERVER="";
 	private $USER="";
 	private $PASSWORD="";
+	private $DBNAME="";
 	private $connection;
 	public $error;
 	function __construct(){
@@ -10,15 +11,15 @@ class connect{
 	}
 
 	function connect(){
-		$gconnectfirebird = ibase_connect ($this->SERVER, $this->USER, $this->PASSWORD, 'ISO8859_1', '0', '1') ;
-		$this->connection = $gconnectfirebird;
-		if(!$this->connection){
+		$this->connection = new mysqli($this->SERVER, $this->USER, $this->PASSWORD,$this->DBNAME) ;
+		if($this->connection->connect_error){
 			$this->error = "Error on DB connect!";
 		}
 	}
 	
 	function executeSearch($sql){
 		$this->connect();
+		
 		if(isset($this->error)){
 			return false;
 		}
@@ -26,32 +27,32 @@ class connect{
 			$this->erro = "SQL command not informed!";
 			return false;
 		}
-		$search = ibase_query($this->connection, $sql);
+		$search = $this->connection->query($sql);
 		$arrReturn = array();
 		$i = 0;
-		while ($row = ibase_fetch_assoc($search)) {
-			$arrReturn[$i] = $row;
-			$i++;
+		if($search->num_rows > 0){
+			while ($row = $search->fetch_assoc()) {
+				$arrReturn[$i] = $row;
+				$i++;
+			}
+			
 		}
+		$this->connection->close();
 		return $arrReturn;
 	}
 	
 	function executeCommand($sql){
 		$this->connect();
-		if(isset($this->erro)){
+		if(isset($this->erro)){			
 			return false;
 		}
 		if(!isset($sql) || $sql == ''){
 			$this->error = "SQL command not informed!";
 			return false;
 		}
-		$set = ibase_query($this->connection,$sql);
-		if(!ibase_errmsg()){
-			ibase_free_result($pes);
-			return true;
-		}
-		$this->error = ibase_errmsg();
-		//var_dump($this->erro);
+		$resp = $this->connection->query($sql);
+		$this->connection->close();
+		return $resp;
 		
 		return false;
 		
