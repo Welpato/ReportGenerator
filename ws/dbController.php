@@ -50,7 +50,7 @@ class dbController{
 	
 	function insertInput($reportId, $type, $exhibitionName, $name, $notNull){
 		$sql = "INSERT INTO INPUTS(ID, REPORT_ID, INP_TYPE, EXHIBITION_NAME, COLUMN_NAME, NOT_NULL)
-				VALUES((SELECT MAX(X.CAMP_CODIGO)+1 FROM TS_REL_CAMPOS AS X), $reportId, $type, '$exhibitionName', '$name', $notNull)";
+				VALUES((SELECT MAX(X.ID)+1 FROM INPUTS AS X), $reportId, $type, '$exhibitionName', '$name', $notNull)";
 		$r = $this->con->executeCommand($sql);
 		if($r){
 			return $this->con->executeSearch('SELECT MAX(ID) AS RESP FROM INPUTS');
