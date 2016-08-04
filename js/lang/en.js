@@ -23,7 +23,10 @@ langSave="Save";
 langHelp="Help";
 langHelpText='<p>-Did not use "Enter" to indenting</p><p>-Use the tag "[WHERE]" and this will be replaced by the "User Inputs"</p><p>-To add an extra conditional as ">" or "<" to field of the type INTEGER or DATE just add this after "Column Name", like "DATE >" </p>';
 langAddNew="Add new";
-
+langFilter= "(Filtred of _MAX_ registers)";
+langLoading= "Loading...";
+langProcessing= "Processing...";
+langSearch= "Search";
 
 alertNotNull="The input [NAME] cant be null!";
 alertSuccess="Report Add/Updade success!";
@@ -31,6 +34,9 @@ alertError="Error in Add/Update the Report!";
 alertRemoveInput="Do you really want to remove the user input?";
 alertErrorInput="Error in Add/Update the Input!";
 
+
+
+//-----Not translate this--------
 $(".titlePage").append(langTitle);
 $(".addNewReport").append(langAddNewReport);
 $(".generateReport").append(langGenerateReport);
