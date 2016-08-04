@@ -11,6 +11,9 @@
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/theme.css" rel="stylesheet">
+    <link rel='stylesheet' href='css/jquery.dataTables.min.css'>
+	<link rel='stylesheet' type='text/css' href='css/responsive.dataTables.min.css'>
+	<link rel='stylesheet' href='css/fixedHeader.dataTables.min.css'>
     <link rel="icon" href="img/icon.png">
   </head>
 
@@ -41,15 +44,16 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <h3><div class="reportList"></div></h3>
           <ul class="nav nav-sidebar" id="sideMenu">
-          	<table width='100%' cellpadding='0' class='display compact table tablesorter' id='reportList' name='reportList'>
-	            <thead>
-	            	<tr>
-	              		<th></th>
-	                </tr>
-	            </thead>
-				<tbody>				
-				</tbody>
-			</table>
+          	  <li id="lNew"><a href="#" onclick="reportSelection('NEW')" class="addNew"></a></li>
+	          <table width='100%' cellpadding='0' class='display compact table tablesorter' id='reportList' name='reportList'>
+		            <thead>
+		            	<tr>
+		              		<th></th>
+		                </tr>
+		            </thead>
+					<tbody>				
+					</tbody>
+			  </table>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -97,6 +101,7 @@
     <script src="js/lang/lang.js"></script>
     <script src="js/genReport.js"></script>
     <script src="js/jquery.techbytarun.excelexportjs.min.js"></script>
+    <script language='JavaScript' src='js/jquery.dataTables.min.js'></script>
   </body>
   
 </html>
