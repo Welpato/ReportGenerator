@@ -11,6 +11,9 @@
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/theme.css" rel="stylesheet">
+    <link rel='stylesheet' href='css/jquery.dataTables.min.css'>
+	<link rel='stylesheet' type='text/css' href='css/responsive.dataTables.min.css'>
+	<link rel='stylesheet' href='css/fixedHeader.dataTables.min.css'>
     <link rel="icon" href="img/icon.png">
   </head>
 
@@ -41,6 +44,16 @@
         <div class="col-sm-3 col-md-2 sidebar">          
           <h3><div class="reportList"></div></h3>
           <ul class="nav nav-sidebar" id="sideMenu">
+          	  <li id="lNew"><a href="#" onclick="reportSelection('NEW')" class="addNew"></a></li>
+	          <table width='100%' cellpadding='0' class='display compact table tablesorter' id='reportList' name='reportList'>
+		            <thead>
+		            	<tr>
+		              		<th></th>
+		                </tr>
+		            </thead>
+					<tbody>				
+					</tbody>
+			  </table>
           </ul>
         </div>       
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -79,22 +92,36 @@
       </div>
     </div>
 
+	<div id='modalLoading' class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top:15%; overflow-y:visible;">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-3"></div>
+	            		<div class="col-sm-7"><img class="glyphicon glyphicon-refresh-animate" height="125" width="125" src="img/loading.png"></div>
+            		</div>
+				</div>
+			</div>
+		</div>
+    </div>
+
 	<div class="modal modal-wide fade" id="modalHelp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  <div class="modal-dialog">
-				  <div class="modal-content">
-					  <div class="modal-header">
-						  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						  <h3 class="modal-title" style="color: black;" id="modalHead"><div class="help"></div></h3>						  
-					  </div>
-					  <div class="modal-body helpText"></div>
+		  <div class="modal-dialog">
+			  <div class="modal-content">
+				  <div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					  <h3 class="modal-title" style="color: black;" id="modalHead"><div class="help"></div></h3>						  
 				  </div>
+				  <div class="modal-body helpText"></div>
 			  </div>
 		  </div>
+	</div>
 	
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/lang/lang.js"></script>
     <script src="js/addReport.js"></script>
+    <script language='JavaScript' src='js/jquery.dataTables.min.js'></script>
   </body>
 </html>
