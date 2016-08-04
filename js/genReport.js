@@ -2,23 +2,47 @@ $(".reportNotFound").append(langReportNotFound);
 $(".exportToExcel").append(langExportToExcel);
 reports = '';
 arrayInput = new Array();
-$( document ).ready(function() {		
-    buildSideMenu();   
+$( document ).ready(function() {
+	$('#reportList').DataTable( {
+		language :{
+			"sEmptyTable": langReportNotFound,
+		    "sInfo": "",
+		    "sInfoEmpty": "",
+		    "sInfoFiltered": langFilter,
+		    "sInfoPostFix": "",
+		    "sInfoThousands": ".",
+		    "sLoadingRecords": langLoading,
+		    "sProcessing": langProcessing,
+		    "sZeroRecords": langReportNotFound,
+		    "sSearch": langSearch,
+		},
+		bAutoWidth : true,
+		bLengthChange  : false,				
+		responsive: true,
+		fixedHeader: true,
+		paging: false,
+	})
+    buildSideMenu();
 });
 
 function buildSideMenu(){
-	url = 'ws/json.php?action=returnReports';
-	$('#sideMenu').empty();
+	var t = $('#reportList').DataTable();
+	url = 'ws/json.php?action=returnReports&onlyActive=0';
+	t.clear().draw();
 	c = 0;
-	$("#modalLoading").modal('show');
+	$("#modalLoading").modal('show');	
 	$.getJSON(url, function(result){
 		reports = result;
+		$('#reportList tbody').empty();
 		$.each(result, function(i, data){
-			$('#sideMenu').append('<li id="l'+c+'"><a href="#" onclick="reportSelection('+c+')">'+data.NAME+'</a></li>');
+			t.row.add([
+			           '<li id="l'+c+'"><a href="#" onclick="reportSelection('+c+')">'+data.NAME+'</a></li>'
+			           ]).draw(true);	
 			c++;
 		});
 		$("#modalLoading").modal('hide');
 	});
+	
 }
 
 function reportSelection(reportSelected){	

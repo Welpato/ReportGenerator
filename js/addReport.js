@@ -4,38 +4,63 @@ $(".inputUser").append(langInputUser);
 $(".save").append(langSave);
 $(".help").append(langHelp);
 $(".helpText").append(langHelpText);
+$(".addNew").append(langAddNew);
 
 reports = '';
 ic = 0;
 onlyGraph = false;
 inputControll = new Array();
 $( document ).ready(function() {
+	$('#reportList').DataTable( {
+		language :{
+			"sEmptyTable": langReportNotFound,
+		    "sInfo": "",
+		    "sInfoEmpty": "",
+		    "sInfoFiltered": langFilter,
+		    "sInfoPostFix": "",
+		    "sInfoThousands": ".",
+		    "sLoadingRecords": langLoading,
+		    "sProcessing": langProcessing,
+		    "sZeroRecords": langReportNotFound,
+		    "sSearch": langSearch,
+		},
+		bAutoWidth : true,
+		bLengthChange  : false,				
+		responsive: true,
+		fixedHeader: true,
+		paging: false,
+			})
     buildSideMenu();
 });
 
 function buildSideMenu(){
+	var t = $('#reportList').DataTable();
 	url = 'ws/json.php?action=returnReports&onlyActive=0';
-	
-	$('#sideMenu').empty();
+	t.clear().draw();
 	c = 0;
-	$('#sideMenu').append('<li id="lNew"><a href="#" onclick="reportSelection(\'NEW\')">'+langAddNew+'</a></li>');
+	$("#modalLoading").modal('show');	
 	$.getJSON(url, function(result){
 		reports = result;
+		$('#reportList tbody').empty();
 		$.each(result, function(i, data){
-			$('#sideMenu').append('<li id="l'+c+'"><a href="#" onclick="reportSelection('+c+')">'+data.NAME+'</a></li>');
+			t.row.add([
+			           '<li id="l'+c+'"><a href="#" onclick="reportSelection('+c+')">'+data.NAME+'</a></li>'
+			           ]).draw(true);	
 			c++;
 		});
+		$("#modalLoading").modal('hide');
 	});
 	
 }
 
 function addReport(){
 	newSql = true;
-	url = 'ws/json.php?action=insertUpdateReport&reportName='+$('#reportName').val()+'&sqlBase='+$('#sqlBase').val()+'&radioActive='+$('input[name=radioActive]:checked', '#formReport').val();
+	url = 'ws/json.php?action=insertUpdateReport&reportName='+$('#reportName').val()+'&sqlBase='+$('#sqlBase').val()+'&radioActive='+$('input[name=radioActive]:checked', '#formReport').val();	
 	if($('#idReport').val() != ''){
 		newSql = false;
 		url += '&reportId='+$('#idReport').val();
 	}
+	$("#modalLoading").modal('show');
 	$.getJSON( url, function( data ) {
 	  if(data['0']['RESP'] > 0){
 		  if(newSql){
@@ -50,6 +75,7 @@ function addReport(){
 	  }else{
 		  alert(alertError);
 	  }
+	  $("#modalLoading").modal('hide');
 	});
 }
 
@@ -82,10 +108,12 @@ function reportSelection(reportSelected){
 
 function reportInputs(reportId){
 	url = 'ws/json.php?action=returnReportInputs&reportId='+reportId;
+	$("#modalLoading").modal('show');
 	$.getJSON( url, function(result) {
 		$.each(result, function(i, data){
-			addInput(data.ID, data.EXHIBITION_NAME, data.COLUMN_NAME, data.NOT_NULL, data.INP_TYPE);
+			addInput(data.ID, data.EXHIBITION_NAME, data.COLUMN_NAME, data.NOT_NULL, data.INP_TYPE);			
 		});
+		$("#modalLoading").modal('hide');
 	});
 }
 
@@ -135,10 +163,12 @@ function removeInput(inputRemove,index){
 function insertInput(inputAdd,index){
 	newSql = true;
 	url = 'ws/json.php?action=insertUpdateInput&reportId='+$('#idReport').val()+'&type='+$('#inputType'+inputAdd).val()+'&exhibitionName='+$('#exhibitionName'+inputAdd).val()+'&name='+$('#inputName'+inputAdd).val()+'&notNull='+$('input[name=inputNotNull'+inputAdd+']:checked', '#formReport').val();
+	console.log(url);
 	if($('#idInput'+inputAdd).val() != ''){
 		newSql = false;
 		url += '&inputId='+$('#idInput'+inputAdd).val();
 	}
+	$("#modalLoading").modal('show');
 	$.getJSON( url, function(data) {
 		if(data['0']['RESP'] > 0){
 			if(newSql){				  
@@ -147,6 +177,7 @@ function insertInput(inputAdd,index){
 		}else{
 			alert(alertErrorInput);
 		}
+		$("#modalLoading").modal('hide');
 	});
 }
 
