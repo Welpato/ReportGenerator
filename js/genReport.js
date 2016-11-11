@@ -165,7 +165,7 @@ function executeSql(sql){
 				}
 				line = '<tr>';
 				for(var val in data){				
-					line+='<th>'+data[val]+'</th>';
+					line+='<td>'+data[val]+'</td>';
 				}
 				line+= '</tr>';
 				$('#report').find('tbody').append(line);
